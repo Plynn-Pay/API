@@ -1,10 +1,9 @@
 const router = require('express').Router()
-const Unidade = require('../models/Unidade')
+const Unidade = require('../models/Estoque')
 
-//Gravar dados da Unidade
+//Gravar dados da Estoque
 router.post('/', async (req, res) =>{
    
-    // {nome: "Bullguer", razao: "Bulluger Alimentos SA", cnpj: 21.288.040/0001-94}
     const {nome, doca_id,  status} = req.body
 
     // Validação dos dados
