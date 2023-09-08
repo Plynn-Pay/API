@@ -5,42 +5,29 @@ const Unidade = require('../models/Unidade')
 router.post('/', async (req, res) =>{
    
     // {nome: "Bullguer", razao: "Bulluger Alimentos SA", cnpj: 21.288.040/0001-94}
-    const {nome, corporacao_id, razao, cnpj, ie, endereco, cep, cidade, uf, contato, email, logotipo, celular, dhCadastro, dhAlteracao, status} = req.body
+    const {nome, doca_id,  status} = req.body
 
     // Validação dos dados
-    if(!nome){
+    if(!doca_id){
         res.status(422).json({error: 'O nome da uniadde é obrigatório'}) 
         return
     }
 
-    if(!corporacao_id){
-        res.status(422).json({error: 'O ID da Corporação é obrigatório'}) 
+    if(!doca_id){
+        res.status(422).json({error: 'O ID da Doca é obrigatório'}) 
         return
     }
 
-    const unidade = {
+    const estoque = {
         nome,
-        corporacao_id,
-        razao,
-        cnpj,
-        ie,
-        endereco,
-        cep,
-        cidade,
-        uf,
-        contato,
-        email,
-        logotipo,
-        celular,
-        dhCadastro,
-        dhAlteracao,
+        doca_id,
         status
     }
 
     try {
         // criando dados
-        await Unidade.create(unidade)
-        res.status(201).json({message: 'Unidade inserida no sistema com sucesso"'})
+        await Estoque.create(estoque)
+        res.status(201).json({message: 'Estoque inserido no sistema com sucesso"'})
         
     } catch (error) {
         res.status(500).json({error: error})

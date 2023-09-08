@@ -25,9 +25,18 @@ app.use('/corporacao', corporacaoRoutes)
 const unidadeRoutes = require('./routes/unidadeRoutes')
 app.use('/unidade', unidadeRoutes)
 
+const docaRoutes = require('./routes/docaRoutes')
+app.use('/doca', docaRoutes)
+
+const estoqueRoutes = require('./routes/estoqueRoutes')
+app.use('/estoque', estoqueRoutes)
+
+
 const usuarioRoutes = require('./routes/usuarioRoutes')
 const Usuario = require('./models/Usuario')
 app.use('/usuario', usuarioRoutes)
+
+
 
 // rota inicial / Public Route
 app.get('/', (req, res) => {

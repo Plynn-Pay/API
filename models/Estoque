@@ -1,0 +1,9 @@
+const mongoose = require('mongoose')
+
+const Estoque = mongoose.model('Estoque',{
+    nome: String,
+    doca_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Doca'},
+    status: Boolean,
+}) 
+
+module.exports = Estoque
