@@ -1,14 +1,14 @@
 const router = require('express').Router()
-const Unidade = require('../models/Estoque')
+const Estoque = require('../models/Estoque')
 
 //Gravar dados da Estoque
 router.post('/', async (req, res) =>{
    
-    const {nome, doca_id,  status} = req.body
+    const {nome, doca_id, status} = req.body
 
     // Validação dos dados
-    if(!doca_id){
-        res.status(422).json({error: 'O nome da uniadde é obrigatório'}) 
+    if(!nome){
+        res.status(422).json({error: 'O nome do estoque é obrigatório'}) 
         return
     }
 
@@ -31,6 +31,7 @@ router.post('/', async (req, res) =>{
     } catch (error) {
         res.status(500).json({error: error})
     }
+
 })
 
 //Listar todas as Unidades
