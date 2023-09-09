@@ -34,11 +34,11 @@ router.post('/', async (req, res) =>{
 
 })
 
-//Listar todas as Unidades
+//Listar todas os Estoque
 router.get('/', async (req, res) =>{
     try {   
-        const unidade = await Unidade.find()
-        res.status(200).json(unidade)
+        const estoque = await Estoque.find()
+        res.status(200).json(estoque)
 
     } catch (error) {
         res.status(500).json({error: error}) 
