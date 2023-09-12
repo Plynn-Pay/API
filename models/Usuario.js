@@ -6,7 +6,7 @@ const Usuario = mongoose.model('Usuario',{
     celular: String,
     email: String,
     senha: String,
-    tipo: String,
+    tipo: String, 
     status: Boolean,
 })
 
