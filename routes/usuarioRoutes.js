@@ -1,16 +1,21 @@
 const router = require('express').Router()
 const Usuario = require('../models/Usuario')
+const Unidade = require('../models/Unidade')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
-
 
 // Create - Criação de Dados
 router.post('/', async (req, res) =>{
     // req.body
    
     // {nome: "Fernando", email: "fernando@ferdz.com.br", status: true}
-    const {unidade, nome, celular, email, senha, tipo, status} = req.body
+    const {unidade_id, nome, celular, email, senha, tipo, status} = req.body
+
+    if(!unidade_id){
+        res.status(422).json({error: 'A unidade é obrigatória'}) 
+        return
+    }
 
     if(!nome){
         res.status(422).json({error: 'O nome é obrigatório'}) 
@@ -31,16 +36,27 @@ router.post('/', async (req, res) =>{
     const userExists = await Usuario.findOne({email: email})
 
     if (userExists){
-        res.status(422).json({error: 'Por favor, utilize outro e-mail'}) 
+        res.status(422).json({error: 'Por favor, e-mail já caastrado em nossa base'}) 
         return
     }
+
+
+     //Checar se Unidade já existe
+     //const unidadeExists = await Unidade.findOne({_id: unidade_id})
+
+     // const unidade = await Unidade.findOne({_id: id}).populate('corporacao_id');
+
+     //if (!unidadeExists){
+       //  res.status(422).json({error: 'Por favor, envie uma unidade válida'}) 
+        // return
+     //}
 
     // Criar senha
     const salt = await bcrypt.genSalt(12)
     const passwordHash = await bcrypt.hash(senha, salt)
 
     const usuario = {
-        unidade, 
+        unidade_id, 
         nome, 
         celular, 
         email, 
@@ -115,7 +131,7 @@ router.post('/auth', async(req, res) => {
 //Read - Leitura de dados
 router.get('/', async (req, res) =>{
     try {   
-        const usuarios = await Usuario.find({}, '-senha') 
+        const usuarios = await Usuario.find({}, '-status') 
         res.status(200).json(usuarios)
 
     } catch (error) {
@@ -147,10 +163,10 @@ router.patch('/:id', async (req, res) =>{
     
     const id = req.params.id
 
-    const {unidade, nome, celular, email, senha, tipo, status} = req.body
+    const {unidade_id, nome, celular, email, senha, tipo, status} = req.body
 
     const usuario = {
-        unidade, 
+        unidade_id, 
         nome, 
         celular, 
         email, 

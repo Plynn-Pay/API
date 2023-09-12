@@ -31,6 +31,9 @@ app.use('/doca', docaRoutes)
 const estoqueRoutes = require('./routes/estoqueRoutes')
 app.use('/estoque', estoqueRoutes)
 
+const productGroupRoutes = require('./routes/productGroupRoutes')
+app.use('/product_group', productGroupRoutes)
+
 
 const usuarioRoutes = require('./routes/usuarioRoutes')
 const Usuario = require('./models/Usuario')
@@ -50,7 +53,7 @@ app.get('/user/:id', checkToken, async (req, res) =>{
     const id = req.params.id
 
     // Checar se usuário existe
-    const usuario = await Usuario.findById(id, '-senha')
+    const usuario = await Usuario.findById(id, '-senha').populate('unidade_id').populate('unidade_id');
     
     if(!usuario) {
         res.status(404).json({message: 'Usuário não foi encontrado'})

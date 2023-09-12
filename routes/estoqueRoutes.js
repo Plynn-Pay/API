@@ -51,14 +51,14 @@ router.get('/:id', async (req, res) =>{
     const id = req.params.id
 
     try {
-        const unidade = await Unidade.findOne({_id: id})
+        const estoque = await Estoque.findOne({_id: id})
 
-        if(!unidade) {
-            res.status(424).json({message: 'Unidade não foi encontrada'})
+        if(!estoque) {
+            res.status(424).json({message: 'Estoque não foi encontrado'})
             return
         }
 
-        res.status(200).json(unidade)
+        res.status(200).json(estoque)
     } catch (error) {
         res.status(500).json({error: error}) 
     }
@@ -69,35 +69,23 @@ router.patch('/:id', async (req, res) =>{
     
     const id = req.params.id
 
-    const {nome, razao, cnpj, ie, endereco, cep, cidade, uf, contato, email, logotipo, celular, dhCadastro, dhAlteracao, status} = req.body
+    const {nome, doca_id, status} = req.body
 
-    const unidade = {
+    const estoque = {
         nome,
-        razao,
-        cnpj,
-        ie,
-        endereco,
-        cep,
-        cidade,
-        uf,
-        contato,
-        email,
-        logotipo,
-        celular,
-        dhCadastro,
-        dhAlteracao,
+        doca_id,
         status
     }
 
    try {
-    const updateUnidade = await Unidade.updateOne({_id: id}, unidade)
+    const updateEstoque = await Estoque.updateOne({_id: id}, estoque)
 
-    if(updateUnidade.matchedCount === 0) {
-        res.status(424).json({message: 'Unidade não foi encontrada'})
+    if(updateEstoque.matchedCount === 0) {
+        res.status(424).json({message: 'Estoque não foi encontrado'})
         return
     } 
 
-    res.status(200).json(unidade)
+    res.status(200).json(estoque)
     
    } catch (error) {
     res.status(500).json({error: error}) 

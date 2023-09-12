@@ -64,7 +64,11 @@ router.get('/:id', async (req, res) =>{
     const id = req.params.id
 
     try {
-        const unidade = await Unidade.findOne({_id: id})
+       // const unidade = await Unidade.findOne({_id: id})
+
+       const unidade = await Unidade.findOne({_id: id}).populate('corporacao_id');
+
+      // const usuario = await Usuario.findOne({_id: id, }, '-senha')
 
         if(!unidade) {
             res.status(424).json({message: 'Unidade não foi encontrada'})
