@@ -34,6 +34,9 @@ app.use('/estoque', estoqueRoutes)
 const productGroupRoutes = require('./routes/productGroupRoutes')
 app.use('/product_group', productGroupRoutes)
 
+const productRoutes = require('./routes/productRoutes')
+app.use('/product', productRoutes)
+
 
 const usuarioRoutes = require('./routes/usuarioRoutes')
 const Usuario = require('./models/Usuario')
